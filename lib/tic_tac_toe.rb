@@ -10,17 +10,7 @@ WIN_COMBINATIONS = [
   [0,4,8],
   [2,4,6]
 ]
-def play(board)
-  while !over?(board)
-   turn(board)
-  end
 
-  if won?(board)
-    puts "Congratulations #{winner(board)}!"
-  elsif draw?(board)
-    puts "Cats Game!"
-  end
-end
 
 
 
@@ -109,6 +99,19 @@ def over?(board)
    !!won?(board) == true || draw?(board) == true
 end
 
+
+
+def current_player(board)
+  turn_count(board) % 2 == 0 ? "X" : "O"
+end
+
+def turn_count(board)
+  board.count{|token| token == "X" || token == "O"}
+end
+
+def move(board, location, player = "X")
+  board[location.to_i-1] = player
+end
 
 def winner(board)
   WIN_COMBINATIONS.each do |win_combination|
